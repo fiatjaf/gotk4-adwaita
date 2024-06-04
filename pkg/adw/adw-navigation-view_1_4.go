@@ -586,8 +586,8 @@ func defaultNavigationViewOverrides(v *NavigationView) NavigationViewOverrides {
 // The button also has a context menu, allowing to pop multiple pages at once,
 // potentially across multiple navigation views.
 //
-// Set headerbar:show-back-button to FALSE to disable this behavior if it's
-// unwanted.
+// Set headerbar:show-back-button to FALSE to disable this behavior in rare
+// scenarios where it's unwanted.
 //
 // AdwHeaderBar will also display the title of the AdwNavigationPage it's placed
 // into, so most applications shouldn't need to customize it at all.
@@ -1148,7 +1148,7 @@ func (self *NavigationView) PopToTag(tag string) bool {
 // If navigationview.Add hasn't been called, the page is automatically removed
 // once it's popped.
 //
-// navigationview::popped will be emitted for page.
+// navigationview::pushed will be emitted for page.
 //
 // See navigationview.PushByTag.
 //
@@ -1173,7 +1173,7 @@ func (self *NavigationView) Push(page *NavigationPage) {
 // If navigationview.Add hasn't been called, the page is automatically removed
 // once it's popped.
 //
-// navigationview::popped will be emitted for pushed page.
+// navigationview::pushed will be emitted for the page.
 //
 // See navigationview.Push and navigationpage:tag.
 //

@@ -494,6 +494,8 @@ func (self *Leaflet) ChildTransitionRunning() bool {
 //
 // The function returns the following values:
 //
+//   - foldThresholdPolicy: fold threshold policy.
+//
 func (self *Leaflet) FoldThresholdPolicy() FoldThresholdPolicy {
 	var _arg0 *C.AdwLeaflet            // out
 	var _cret C.AdwFoldThresholdPolicy // in

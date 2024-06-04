@@ -76,6 +76,10 @@ func defaultActionRowOverrides(v *ActionRow) ActionRowOverrides {
 //
 // It contains subnodes label.title and label.subtitle representing respectively
 // the title label and subtitle label.
+//
+// AdwActionRow can use the .property (style-classes.html#property-rows) style
+// class to emphasize the row subtitle instead of the row title, which is useful
+// for displaying read-only properties.
 type ActionRow struct {
 	_ [0]func() // equal guard
 	PreferencesRow

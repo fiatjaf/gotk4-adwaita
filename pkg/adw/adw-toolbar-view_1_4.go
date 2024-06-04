@@ -145,8 +145,8 @@ func defaultToolbarViewOverrides(v *ToolbarView) ToolbarViewOverrides {
 //
 // By default, top and bottom bars are flat and scrolling content has
 // a subtle undershoot shadow, same as when using the .undershoot-top
-// (style-classes.html#undershot-indicators) and .undershoot-bottom
-// (style-classes.html#undershot-indicators) style classes. This works well in
+// (style-classes.html#undershoot-indicators) and .undershoot-bottom
+// (style-classes.html#undershoot-indicators) style classes. This works well in
 // most cases, e.g. with statuspage or preferencespage, where the background at
 // the top and bottom parts of the page is uniform. Additionally, windows with
 // sidebars should always use this style.
@@ -557,7 +557,7 @@ func (self *ToolbarView) Remove(widget gtk.Widgetter) {
 //
 // If set to ADW_TOOLBAR_FLAT, bottom bars are flat and scrolling content has a
 // subtle undershoot shadow when touching them, same as the .undershoot-bottom
-// (style-classes.html#undershot-indicators) style class. This works well for
+// (style-classes.html#undershoot-indicators) style class. This works well for
 // simple content, e.g. statuspage or preferencespage, where the background at
 // the bottom of the page is uniform. Additionally, windows with sidebars should
 // always use this style.
@@ -725,7 +725,7 @@ func (self *ToolbarView) SetRevealTopBars(reveal bool) {
 //
 // If set to ADW_TOOLBAR_FLAT, top bars are flat and scrolling content has a
 // subtle undershoot shadow when touching them, same as the .undershoot-top
-// (style-classes.html#undershot-indicators) style class. This works well for
+// (style-classes.html#undershoot-indicators) style class. This works well for
 // simple content, e.g. statuspage or preferencespage, where the background at
 // the top of the page is uniform. Additionally, windows with sidebars should
 // always use this style.

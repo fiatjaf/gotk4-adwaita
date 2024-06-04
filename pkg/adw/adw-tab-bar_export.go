@@ -15,8 +15,8 @@ import (
 import "C"
 
 //export _gotk4_adw1_TabBar_ConnectExtraDragDrop
-func _gotk4_adw1_TabBar_ConnectExtraDragDrop(arg0 C.gpointer, arg1 *C.AdwTabPage, arg2 C.GValue, arg3 C.guintptr) (cret C.gboolean) {
-	var f func(page *TabPage, value coreglib.Value) (ok bool)
+func _gotk4_adw1_TabBar_ConnectExtraDragDrop(arg0 C.gpointer, arg1 *C.AdwTabPage, arg2 *C.GValue, arg3 C.guintptr) (cret C.gboolean) {
+	var f func(page *TabPage, value *coreglib.Value) (ok bool)
 	{
 		closure := coreglib.ConnectedGeneratedClosure(uintptr(arg3))
 		if closure == nil {
@@ -24,14 +24,14 @@ func _gotk4_adw1_TabBar_ConnectExtraDragDrop(arg0 C.gpointer, arg1 *C.AdwTabPage
 		}
 		defer closure.TryRepanic()
 
-		f = closure.Func.(func(page *TabPage, value coreglib.Value) (ok bool))
+		f = closure.Func.(func(page *TabPage, value *coreglib.Value) (ok bool))
 	}
 
-	var _page *TabPage        // out
-	var _value coreglib.Value // out
+	var _page *TabPage         // out
+	var _value *coreglib.Value // out
 
 	_page = wrapTabPage(coreglib.Take(unsafe.Pointer(arg1)))
-	_value = *coreglib.ValueFromNative(unsafe.Pointer((&arg2)))
+	_value = coreglib.ValueFromNative(unsafe.Pointer(arg2))
 
 	ok := f(_page, _value)
 
@@ -45,8 +45,8 @@ func _gotk4_adw1_TabBar_ConnectExtraDragDrop(arg0 C.gpointer, arg1 *C.AdwTabPage
 }
 
 //export _gotk4_adw1_TabBar_ConnectExtraDragValue
-func _gotk4_adw1_TabBar_ConnectExtraDragValue(arg0 C.gpointer, arg1 *C.AdwTabPage, arg2 C.GValue, arg3 C.guintptr) (cret C.GdkDragAction) {
-	var f func(page *TabPage, value coreglib.Value) (dragAction gdk.DragAction)
+func _gotk4_adw1_TabBar_ConnectExtraDragValue(arg0 C.gpointer, arg1 *C.AdwTabPage, arg2 *C.GValue, arg3 C.guintptr) (cret C.GdkDragAction) {
+	var f func(page *TabPage, value *coreglib.Value) (dragAction gdk.DragAction)
 	{
 		closure := coreglib.ConnectedGeneratedClosure(uintptr(arg3))
 		if closure == nil {
@@ -54,14 +54,14 @@ func _gotk4_adw1_TabBar_ConnectExtraDragValue(arg0 C.gpointer, arg1 *C.AdwTabPag
 		}
 		defer closure.TryRepanic()
 
-		f = closure.Func.(func(page *TabPage, value coreglib.Value) (dragAction gdk.DragAction))
+		f = closure.Func.(func(page *TabPage, value *coreglib.Value) (dragAction gdk.DragAction))
 	}
 
-	var _page *TabPage        // out
-	var _value coreglib.Value // out
+	var _page *TabPage         // out
+	var _value *coreglib.Value // out
 
 	_page = wrapTabPage(coreglib.Take(unsafe.Pointer(arg1)))
-	_value = *coreglib.ValueFromNative(unsafe.Pointer((&arg2)))
+	_value = coreglib.ValueFromNative(unsafe.Pointer(arg2))
 
 	dragAction := f(_page, _value)
 

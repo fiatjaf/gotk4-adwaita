@@ -193,6 +193,31 @@ func (self *SwipeTracker) AllowMouseDrag() bool {
 	return _ok
 }
 
+// AllowWindowHandle gets whether to allow touchscreen swiping from
+// GtkWindowHandle.
+//
+// The function returns the following values:
+//
+//   - ok: whether swiping from window handles is allowed.
+//
+func (self *SwipeTracker) AllowWindowHandle() bool {
+	var _arg0 *C.AdwSwipeTracker // out
+	var _cret C.gboolean         // in
+
+	_arg0 = (*C.AdwSwipeTracker)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+
+	_cret = C.adw_swipe_tracker_get_allow_window_handle(_arg0)
+	runtime.KeepAlive(self)
+
+	var _ok bool // out
+
+	if _cret != 0 {
+		_ok = true
+	}
+
+	return _ok
+}
+
 // Enabled gets whether self is enabled.
 //
 // The function returns the following values:
@@ -354,6 +379,29 @@ func (self *SwipeTracker) SetAllowMouseDrag(allowMouseDrag bool) {
 	C.adw_swipe_tracker_set_allow_mouse_drag(_arg0, _arg1)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(allowMouseDrag)
+}
+
+// SetAllowWindowHandle sets whether to allow touchscreen swiping from
+// GtkWindowHandle.
+//
+// Setting it to TRUE will make dragging the window impossible.
+//
+// The function takes the following parameters:
+//
+//   - allowWindowHandle: whether to allow swiping from window handles.
+//
+func (self *SwipeTracker) SetAllowWindowHandle(allowWindowHandle bool) {
+	var _arg0 *C.AdwSwipeTracker // out
+	var _arg1 C.gboolean         // out
+
+	_arg0 = (*C.AdwSwipeTracker)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	if allowWindowHandle {
+		_arg1 = C.TRUE
+	}
+
+	C.adw_swipe_tracker_set_allow_window_handle(_arg0, _arg1)
+	runtime.KeepAlive(self)
+	runtime.KeepAlive(allowWindowHandle)
 }
 
 // SetEnabled sets whether self is enabled.

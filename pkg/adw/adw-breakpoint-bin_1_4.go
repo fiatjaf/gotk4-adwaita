@@ -41,9 +41,9 @@ func defaultBreakpointBinOverrides(v *BreakpointBin) BreakpointBinOverrides {
 // media="(prefers-color-scheme: dark)"> <img src="breakpoint-bin.png"
 // alt="breakpoint-bin"> </picture>
 //
-// AdwBreakpointBin provides a way to use breakpoints without window or
-// applicationwindow. It can be useful for limiting breakpoints to a single page
-// and similar purposes. Most applications shouldn't need it.
+// AdwBreakpointBin provides a way to use breakpoints without window,
+// applicationwindow or dialog. It can be useful for limiting breakpoints to a
+// single page and similar purposes. Most applications shouldn't need it.
 //
 // AdwBreakpointBin is similar to bin. It has one child, set via the
 // breakpointbin:child property.
@@ -284,6 +284,24 @@ func (self *BreakpointBin) CurrentBreakpoint() *Breakpoint {
 	}
 
 	return _breakpoint
+}
+
+// RemoveBreakpoint removes breakpoint from self.
+//
+// The function takes the following parameters:
+//
+//   - breakpoint to remove.
+//
+func (self *BreakpointBin) RemoveBreakpoint(breakpoint *Breakpoint) {
+	var _arg0 *C.AdwBreakpointBin // out
+	var _arg1 *C.AdwBreakpoint    // out
+
+	_arg0 = (*C.AdwBreakpointBin)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg1 = (*C.AdwBreakpoint)(unsafe.Pointer(coreglib.InternObject(breakpoint).Native()))
+
+	C.adw_breakpoint_bin_remove_breakpoint(_arg0, _arg1)
+	runtime.KeepAlive(self)
+	runtime.KeepAlive(breakpoint)
 }
 
 // SetChild sets the child widget of self.

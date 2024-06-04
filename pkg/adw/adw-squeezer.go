@@ -361,6 +361,8 @@ func (self *Squeezer) Pages() *gtk.SelectionModel {
 //
 // The function returns the following values:
 //
+//   - foldThresholdPolicy: fold threshold policy.
+//
 func (self *Squeezer) SwitchThresholdPolicy() FoldThresholdPolicy {
 	var _arg0 *C.AdwSqueezer           // out
 	var _cret C.AdwFoldThresholdPolicy // in

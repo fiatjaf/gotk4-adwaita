@@ -458,7 +458,7 @@ func (self *PreferencesWindow) SetVisiblePage(page *PreferencesPage) {
 
 // SetVisiblePageName makes the page with the given name visible.
 //
-// See viewstack:visible-child.
+// See preferenceswindow:visible-page.
 //
 // The function takes the following parameters:
 //

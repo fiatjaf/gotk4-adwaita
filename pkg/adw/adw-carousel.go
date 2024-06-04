@@ -128,7 +128,9 @@ func marshalCarousel(p uintptr) (interface{}, error) {
 // ConnectPageChanged: this signal is emitted after a page has been changed.
 //
 // It can be used to implement "infinite scrolling" by amending the pages after
-// every scroll. Note that an empty carousel is indicated by (int)index == -1.
+// every scroll.
+//
+// ::: note An empty carousel is indicated by (int)index == -1.
 func (self *Carousel) ConnectPageChanged(f func(index uint)) coreglib.SignalHandle {
 	return coreglib.ConnectGeneratedClosure(self, "page-changed", false, unsafe.Pointer(C._gotk4_adw1_Carousel_ConnectPageChanged), f)
 }

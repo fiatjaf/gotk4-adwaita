@@ -215,8 +215,8 @@ func NewSpinRow(adjustment *gtk.Adjustment, climbRate float64, digits uint) *Spi
 // set to the minimum value and a page increment of 10 * step is the default.
 // The precision of the spin row is equivalent to the precisions of step.
 //
-// Note that the way in which the precision is derived works best if step is
-// a power of ten. If the resulting precision is not suitable for your needs,
+// ::: note The way in which the precision is derived works best if step is a
+// power of ten. If the resulting precision is not suitable for your needs,
 // use spinrow.SetDigits to correct it.
 //
 // The function takes the following parameters:

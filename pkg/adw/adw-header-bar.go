@@ -73,6 +73,14 @@ func defaultHeaderBarOverrides(v *HeaderBar) HeaderBarOverrides {
 // compared to it. Refer to GtkHeaderBar for details. It is typically used as a
 // top bar within toolbarview.
 //
+// # Dialog Integration
+//
+// When placed inside an dialog, AdwHeaderBar will display the dialog
+// title intead of window title. It will also adjust the decoration
+// layout to ensure it always has a close button and nothing else. Set
+// headerbar:show-start-title-buttons and headerbar:show-end-title-buttons to
+// FALSE to remove it if it's unwanted.
+//
 // # Navigation View Integration
 //
 // When placed inside an navigationpage, AdwHeaderBar will display the page
@@ -81,9 +89,10 @@ func defaultHeaderBarOverrides(v *HeaderBar) HeaderBarOverrides {
 // When used together with navigationview or navigationsplitview, it will also
 // display a back button that can be used to go back to the previous page.
 // The button also has a context menu, allowing to pop multiple pages at once,
-// potentially across multiple navigation views. In rare scenarios,
-// set headerbar:show-back-button to FALSE to disable the back button if it's
-// unwanted (e.g. in an extra header bar on the same page).
+// potentially across multiple navigation views.
+//
+// Set headerbar:show-back-button to FALSE to disable this behavior in rare
+// scenarios where it's unwanted.
 //
 // # Split View Integration
 //

@@ -423,6 +423,8 @@ func (self *Flap) FoldPolicy() FlapFoldPolicy {
 //
 // The function returns the following values:
 //
+//   - foldThresholdPolicy: fold threshold policy.
+//
 func (self *Flap) FoldThresholdPolicy() FoldThresholdPolicy {
 	var _arg0 *C.AdwFlap               // out
 	var _cret C.AdwFoldThresholdPolicy // in

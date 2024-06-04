@@ -16,8 +16,8 @@ import (
 // #include <stdlib.h>
 // #include <adwaita.h>
 // #include <glib-object.h>
-// extern gboolean _gotk4_adw1_TabOverview_ConnectExtraDragDrop(gpointer, AdwTabPage*, GValue, guintptr);
-// extern GdkDragAction _gotk4_adw1_TabOverview_ConnectExtraDragValue(gpointer, AdwTabPage*, GValue, guintptr);
+// extern gboolean _gotk4_adw1_TabOverview_ConnectExtraDragDrop(gpointer, AdwTabPage*, GValue*, guintptr);
+// extern GdkDragAction _gotk4_adw1_TabOverview_ConnectExtraDragValue(gpointer, AdwTabPage*, GValue*, guintptr);
 // extern AdwTabPage* _gotk4_adw1_TabOverview_ConnectCreateTab(gpointer, guintptr);
 import "C"
 
@@ -159,7 +159,7 @@ func (self *TabOverview) ConnectCreateTab(f func() (tabPage *TabPage)) coreglib.
 // taboverview.SetupExtraDropTarget.
 //
 // See gtk.DropTarget::drop.
-func (self *TabOverview) ConnectExtraDragDrop(f func(page *TabPage, value coreglib.Value) (ok bool)) coreglib.SignalHandle {
+func (self *TabOverview) ConnectExtraDragDrop(f func(page *TabPage, value *coreglib.Value) (ok bool)) coreglib.SignalHandle {
 	return coreglib.ConnectGeneratedClosure(self, "extra-drag-drop", false, unsafe.Pointer(C._gotk4_adw1_TabOverview_ConnectExtraDragDrop), f)
 }
 
@@ -173,7 +173,7 @@ func (self *TabOverview) ConnectExtraDragDrop(f func(page *TabPage, value coregl
 // taboverview.SetupExtraDropTarget.
 //
 // See gtk.DropTarget:value.
-func (self *TabOverview) ConnectExtraDragValue(f func(page *TabPage, value coreglib.Value) (dragAction gdk.DragAction)) coreglib.SignalHandle {
+func (self *TabOverview) ConnectExtraDragValue(f func(page *TabPage, value *coreglib.Value) (dragAction gdk.DragAction)) coreglib.SignalHandle {
 	return coreglib.ConnectGeneratedClosure(self, "extra-drag-value", false, unsafe.Pointer(C._gotk4_adw1_TabOverview_ConnectExtraDragValue), f)
 }
 

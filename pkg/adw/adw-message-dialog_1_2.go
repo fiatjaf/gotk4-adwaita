@@ -3,7 +3,6 @@
 package adw
 
 import (
-	"fmt"
 	"runtime"
 	"unsafe"
 
@@ -25,51 +24,13 @@ import "C"
 
 // GType values.
 var (
-	GTypeResponseAppearance = coreglib.Type(C.adw_response_appearance_get_type())
-	GTypeMessageDialog      = coreglib.Type(C.adw_message_dialog_get_type())
+	GTypeMessageDialog = coreglib.Type(C.adw_message_dialog_get_type())
 )
 
 func init() {
 	coreglib.RegisterGValueMarshalers([]coreglib.TypeMarshaler{
-		coreglib.TypeMarshaler{T: GTypeResponseAppearance, F: marshalResponseAppearance},
 		coreglib.TypeMarshaler{T: GTypeMessageDialog, F: marshalMessageDialog},
 	})
-}
-
-// ResponseAppearance describes the possible styles of messagedialog response
-// buttons.
-//
-// See messagedialog.SetResponseAppearance.
-type ResponseAppearance C.gint
-
-const (
-	// ResponseDefault: default appearance.
-	ResponseDefault ResponseAppearance = iota
-	// ResponseSuggested: used to denote important responses such as the
-	// affirmative action.
-	ResponseSuggested
-	// ResponseDestructive: used to draw attention to the potentially damaging
-	// consequences of using the response. This appearance acts as a warning to
-	// the user.
-	ResponseDestructive
-)
-
-func marshalResponseAppearance(p uintptr) (interface{}, error) {
-	return ResponseAppearance(coreglib.ValueFromNative(unsafe.Pointer(p)).Enum()), nil
-}
-
-// String returns the name in string for ResponseAppearance.
-func (r ResponseAppearance) String() string {
-	switch r {
-	case ResponseDefault:
-		return "Default"
-	case ResponseSuggested:
-		return "Suggested"
-	case ResponseDestructive:
-		return "Destructive"
-	default:
-		return fmt.Sprintf("ResponseAppearance(%d)", r)
-	}
 }
 
 // MessageDialogOverrides contains methods that are overridable.
@@ -734,6 +695,25 @@ func (self *MessageDialog) HasResponse(response string) bool {
 	}
 
 	return _ok
+}
+
+// RemoveResponse removes a response from self.
+//
+// The function takes the following parameters:
+//
+//   - id: response ID.
+//
+func (self *MessageDialog) RemoveResponse(id string) {
+	var _arg0 *C.AdwMessageDialog // out
+	var _arg1 *C.char             // out
+
+	_arg0 = (*C.AdwMessageDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg1 = (*C.char)(unsafe.Pointer(C.CString(id)))
+	defer C.free(unsafe.Pointer(_arg1))
+
+	C.adw_message_dialog_remove_response(_arg0, _arg1)
+	runtime.KeepAlive(self)
+	runtime.KeepAlive(id)
 }
 
 // Response emits the messagedialog::response signal with the given response ID.

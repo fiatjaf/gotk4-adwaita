@@ -35,7 +35,7 @@ func defaultPreferencesPageOverrides(v *PreferencesPage) PreferencesPageOverride
 	return PreferencesPageOverrides{}
 }
 
-// PreferencesPage: page from preferenceswindow.
+// PreferencesPage: page from preferencesdialog.
 //
 // <picture> <source srcset="preferences-page-dark.png"
 // media="(prefers-color-scheme: dark)"> <img src="preferences-page.png"

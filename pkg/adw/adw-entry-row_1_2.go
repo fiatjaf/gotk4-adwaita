@@ -374,6 +374,28 @@ func (self *EntryRow) ShowApplyButton() bool {
 	return _ok
 }
 
+// TextLength retrieves the current length of the text in self.
+//
+// The function returns the following values:
+//
+//   - guint: current number of characters in self, or 0 if there are none.
+//
+func (self *EntryRow) TextLength() uint {
+	var _arg0 *C.AdwEntryRow // out
+	var _cret C.guint        // in
+
+	_arg0 = (*C.AdwEntryRow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+
+	_cret = C.adw_entry_row_get_text_length(_arg0)
+	runtime.KeepAlive(self)
+
+	var _guint uint // out
+
+	_guint = uint(_cret)
+
+	return _guint
+}
+
 // GrabFocusWithoutSelecting causes self to have keyboard focus without
 // selecting the text.
 //

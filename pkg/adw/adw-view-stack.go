@@ -467,7 +467,7 @@ func (self *ViewStack) Vhomogeneous() bool {
 	return _ok
 }
 
-// VisibleChild gets the currently visible child of self, .
+// VisibleChild gets the currently visible child of self.
 //
 // The function returns the following values:
 //

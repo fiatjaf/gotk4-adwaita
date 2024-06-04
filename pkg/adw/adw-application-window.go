@@ -256,6 +256,59 @@ func (self *ApplicationWindow) CurrentBreakpoint() *Breakpoint {
 	return _breakpoint
 }
 
+// Dialogs returns a gio.ListModel that contains the open dialogs of self.
+//
+// This can be used to keep an up-to-date view.
+//
+// The function returns the following values:
+//
+//   - listModel: list model for the dialogs of self.
+//
+func (self *ApplicationWindow) Dialogs() *gio.ListModel {
+	var _arg0 *C.AdwApplicationWindow // out
+	var _cret *C.GListModel           // in
+
+	_arg0 = (*C.AdwApplicationWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+
+	_cret = C.adw_application_window_get_dialogs(_arg0)
+	runtime.KeepAlive(self)
+
+	var _listModel *gio.ListModel // out
+
+	{
+		obj := coreglib.AssumeOwnership(unsafe.Pointer(_cret))
+		_listModel = &gio.ListModel{
+			Object: obj,
+		}
+	}
+
+	return _listModel
+}
+
+// VisibleDialog returns the currently visible dialog in self, if there's one.
+//
+// The function returns the following values:
+//
+//   - dialog (optional): visible dialog.
+//
+func (self *ApplicationWindow) VisibleDialog() *Dialog {
+	var _arg0 *C.AdwApplicationWindow // out
+	var _cret *C.AdwDialog            // in
+
+	_arg0 = (*C.AdwApplicationWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+
+	_cret = C.adw_application_window_get_visible_dialog(_arg0)
+	runtime.KeepAlive(self)
+
+	var _dialog *Dialog // out
+
+	if _cret != nil {
+		_dialog = wrapDialog(coreglib.Take(unsafe.Pointer(_cret)))
+	}
+
+	return _dialog
+}
+
 // SetContent sets the content widget of self.
 //
 // This method should always be used instead of gtk.Window.SetChild().

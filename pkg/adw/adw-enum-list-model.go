@@ -226,6 +226,8 @@ func NewEnumListModel(enumType coreglib.Type) *EnumListModel {
 //
 // The function returns the following values:
 //
+//   - guint: position of the value.
+//
 func (self *EnumListModel) FindPosition(value int) uint {
 	var _arg0 *C.AdwEnumListModel // out
 	var _arg1 C.int               // out

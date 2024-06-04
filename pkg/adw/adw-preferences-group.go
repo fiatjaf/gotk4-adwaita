@@ -45,7 +45,7 @@ func defaultPreferencesGroupOverrides(v *PreferencesGroup) PreferencesGroupOverr
 // which in turn are represented by preferencesrow.
 //
 // To summarize the role of the preferences it gathers, a group can have both a
-// title and a description. The title will be used by preferenceswindow to let
+// title and a description. The title will be used by preferencesdialog to let
 // the user look for a preference.
 //
 // # AdwPreferencesGroup as GtkBuildable

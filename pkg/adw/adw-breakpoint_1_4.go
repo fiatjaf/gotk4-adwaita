@@ -118,7 +118,7 @@ func defaultBreakpointOverrides(v *Breakpoint) BreakpointOverrides {
 	return BreakpointOverrides{}
 }
 
-// Breakpoint describes a breakpoint for window.
+// Breakpoint describes a breakpoint for window or dialog.
 //
 // Breakpoints are used to create adaptive UI, allowing to change the layout
 // depending on available size.
@@ -133,7 +133,8 @@ func defaultBreakpointOverrides(v *Breakpoint) BreakpointOverrides {
 // For more complicated scenarios, breakpoint::apply and breakpoint::unapply can
 // be used instead.
 //
-// Breakpoints can be used within window, applicationwindow or breakpointbin.
+// Breakpoints can be used within window, applicationwindow, dialog or
+// breakpointbin.
 //
 // AdwBreakpoint as GtkBuildable:
 //
@@ -246,7 +247,7 @@ func NewBreakpoint(condition *BreakpointCondition) *Breakpoint {
 // The setter will automatically set property on object to value when applying
 // the breakpoint, and set it back to its original value upon unapplying it.
 //
-// Note that setting properties to their original values does not work for
+// ::: note Setting properties to their original values does not work for
 // properties that have irreversible side effects. For example, changing
 // gtk.Button:label while gtk.Button:icon-name is set will reset the icon.
 // However, resetting the label will not set icon-name to its original value.
@@ -277,7 +278,7 @@ func NewBreakpoint(condition *BreakpointCondition) *Breakpoint {
 //
 //   - object: target object.
 //   - property: target property.
-//   - value to set.
+//   - value (optional) to set.
 //
 func (self *Breakpoint) AddSetterDirect(object *coreglib.Object, property string, value *coreglib.Value) {
 	var _arg0 *C.AdwBreakpoint // out
@@ -289,7 +290,9 @@ func (self *Breakpoint) AddSetterDirect(object *coreglib.Object, property string
 	_arg1 = (*C.GObject)(unsafe.Pointer(object.Native()))
 	_arg2 = (*C.char)(unsafe.Pointer(C.CString(property)))
 	defer C.free(unsafe.Pointer(_arg2))
-	_arg3 = (*C.GValue)(unsafe.Pointer(value.Native()))
+	if value != nil {
+		_arg3 = (*C.GValue)(unsafe.Pointer(value.Native()))
+	}
 
 	C.adw_breakpoint_add_setter(_arg0, _arg1, _arg2, _arg3)
 	runtime.KeepAlive(self)

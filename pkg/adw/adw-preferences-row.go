@@ -37,7 +37,7 @@ func defaultPreferencesRowOverrides(v *PreferencesRow) PreferencesRowOverrides {
 
 // PreferencesRow: gtk.ListBoxRow used to present preferences.
 //
-// The AdwPreferencesRow widget has a title that preferenceswindow will use to
+// The AdwPreferencesRow widget has a title that preferencesdialog will use to
 // let the user look for a preference. It doesn't present the title in any way
 // and lets you present the preference as you please.
 //

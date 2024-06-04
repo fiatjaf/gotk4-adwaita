@@ -14,48 +14,48 @@ import (
 // #include <stdlib.h>
 // #include <adwaita.h>
 // #include <glib-object.h>
-// extern gboolean _gotk4_adw1_AboutWindow_ConnectActivateLink(gpointer, gchar*, guintptr);
+// extern gboolean _gotk4_adw1_AboutDialog_ConnectActivateLink(gpointer, gchar*, guintptr);
 import "C"
 
 // GType values.
 var (
-	GTypeAboutWindow = coreglib.Type(C.adw_about_window_get_type())
+	GTypeAboutDialog = coreglib.Type(C.adw_about_dialog_get_type())
 )
 
 func init() {
 	coreglib.RegisterGValueMarshalers([]coreglib.TypeMarshaler{
-		coreglib.TypeMarshaler{T: GTypeAboutWindow, F: marshalAboutWindow},
+		coreglib.TypeMarshaler{T: GTypeAboutDialog, F: marshalAboutDialog},
 	})
 }
 
-// AboutWindowOverrides contains methods that are overridable.
-type AboutWindowOverrides struct {
+// AboutDialogOverrides contains methods that are overridable.
+type AboutDialogOverrides struct {
 }
 
-func defaultAboutWindowOverrides(v *AboutWindow) AboutWindowOverrides {
-	return AboutWindowOverrides{}
+func defaultAboutDialogOverrides(v *AboutDialog) AboutDialogOverrides {
+	return AboutDialogOverrides{}
 }
 
-// AboutWindow: window showing information about the application.
+// AboutDialog: dialog showing information about the application.
 //
-// <picture> <source srcset="about-window-dark.png"
-// media="(prefers-color-scheme: dark)"> <img src="about-window.png"
-// alt="about-window"> </picture>
+// <picture> <source srcset="about-dialog-dark.png"
+// media="(prefers-color-scheme: dark)"> <img src="about-dialog.png"
+// alt="about-dialog"> </picture>
 //
-// An about window is typically opened when the user activates the About … item
-// in the application's primary menu. All parts of the window are optional.
+// an about dialog is typically opened when the user activates the About … item
+// in the application's primary menu. All parts of the dialog are optional.
 //
 // # Main page
 //
-// AdwAboutWindow prominently displays the application's icon, name, developer
-// name and version. They can be set with the aboutwindow:application-icon,
-// aboutwindow:application-name, aboutwindow:developer-name and
-// aboutwindow:version respectively.
+// AdwAboutDialog prominently displays the application's icon, name, developer
+// name and version. They can be set with the aboutdialog:application-icon,
+// aboutdialog:application-name, aboutdialog:developer-name and
+// aboutdialog:version respectively.
 //
 // # What's New
 //
-// AdwAboutWindow provides a way for applications to display their release
-// notes, set with the aboutwindow:release-notes property.
+// AdwAboutDialog provides a way for applications to display their release
+// notes, set with the aboutdialog:release-notes property.
 //
 // Release notes are formatted the same way as AppStream descriptions
 // (https://freedesktop.org/software/appstream/docs/chap-Metadata.html#tag-description).
@@ -74,50 +74,50 @@ func defaultAboutWindowOverrides(v *AboutWindow) AboutWindowOverrides {
 // Nested lists are not supported.
 //
 // Only one version can be shown at a time. By default, the displayed version
-// number matches aboutwindow:version. Use aboutwindow:release-notes-version to
+// number matches aboutdialog:version. Use aboutdialog:release-notes-version to
 // override it.
 //
 // # Details
 //
 // The Details page displays the application comments and links.
 //
-// The comments can be set with the aboutwindow:comments property. Unlike
+// The comments can be set with the aboutdialog:comments property. Unlike
 // gtk.AboutDialog:comments, this string can be long and detailed. It can also
 // contain links and Pango markup.
 //
-// To set the application website, use aboutwindow:website. To add extra links
-// below the website, use aboutwindow.AddLink.
+// To set the application website, use aboutdialog:website. To add extra links
+// below the website, use aboutdialog.AddLink.
 //
 // If the Details page doesn't have any other content besides website, the
 // website will be displayed on the main page instead.
 //
 // # Troubleshooting
 //
-// AdwAboutWindow displays the following two links on the main page:
+// AdwAboutDialog displays the following two links on the main page:
 //
-// * Support Questions, set with the aboutwindow:support-url property, * Report
-// an Issue, set with the aboutwindow:issue-url property.
+// * Support Questions, set with the aboutdialog:support-url property, * Report
+// an Issue, set with the aboutdialog:issue-url property.
 //
 // Additionally, applications can provide debugging information. It will be
-// shown separately on the Troubleshooting page. Use the aboutwindow:debug-info
+// shown separately on the Troubleshooting page. Use the aboutdialog:debug-info
 // property to specify it.
 //
 // It's intended to be attached to issue reports when reporting issues against
 // the application. As such, it cannot contain markup or links.
 //
-// AdwAboutWindow provides a quick way to save debug information to a file.
-// When saving, aboutwindow:debug-info-filename would be used as the suggested
+// AdwAboutDialog provides a quick way to save debug information to a file.
+// When saving, aboutdialog:debug-info-filename would be used as the suggested
 // filename.
 //
 // # Credits and Acknowledgements
 //
 // The Credits page has the following default sections:
 //
-// * Developers, set with the aboutwindow:developers property,
-// * Designers, set with the aboutwindow:designers property, * Artists,
-// set with the aboutwindow:artists property, * Documenters, set with
-// the aboutwindow:documenters property, * Translators, set with the
-// aboutwindow:translator-credits property.
+// * Developers, set with the aboutdialog:developers property,
+// * Designers, set with the aboutdialog:designers property, * Artists,
+// set with the aboutdialog:artists property, * Documenters, set with
+// the aboutdialog:documenters property, * Translators, set with the
+// aboutdialog:translator-credits property.
 //
 // When setting translator credits, use the strings "translator-credits" or
 // "translator_credits" and mark them as translatable.
@@ -125,11 +125,11 @@ func defaultAboutWindowOverrides(v *AboutWindow) AboutWindowOverrides {
 // The default sections that don't contain any names won't be displayed.
 //
 // The Credits page can also contain an arbitrary number of extra sections below
-// the default ones. Use aboutwindow.AddCreditSection to add them.
+// the default ones. Use aboutdialog.AddCreditSection to add them.
 //
 // The Acknowledgements page can be used to acknowledge additional
 // people and organizations for their non-development contributions. Use
-// aboutwindow.AddAcknowledgementSection to add sections to it. For example,
+// aboutdialog.AddAcknowledgementSection to add sections to it. For example,
 // it can be used to list backers in a crowdfunded project or to give special
 // thanks.
 //
@@ -138,29 +138,29 @@ func defaultAboutWindowOverrides(v *AboutWindow) AboutWindowOverrides {
 // <edgarpoe.com>. To specify a website with a title, use a string like The
 // GNOME Project https://www.gnome.org:
 //
-// <picture> <source srcset="about-window-credits-dark.png"
-// media="(prefers-color-scheme: dark)"> <img src="about-window-credits.png"
-// alt="about-window-credits"> </picture>
+// <picture> <source srcset="about-dialog-credits-dark.png"
+// media="(prefers-color-scheme: dark)"> <img src="about-dialog-credits.png"
+// alt="about-dialog-credits"> </picture>
 //
 // # Legal
 //
 // The Legal page displays the copyright and licensing information for the
 // application and other modules.
 //
-// The copyright string is set with the aboutwindow:copyright property and
+// The copyright string is set with the aboutdialog:copyright property and
 // should be a short string of one or two lines, for example: © 2022 Example.
 //
 // Licensing information can be quickly set from a list of known licenses with
-// the aboutwindow:license-type property. If the application's license is not in
-// the list, aboutwindow:license can be used instead.
+// the aboutdialog:license-type property. If the application's license is not in
+// the list, aboutdialog:license can be used instead.
 //
 // To add information about other modules, such as application dependencies or
-// data, use aboutwindow.AddLegalSection.
+// data, use aboutdialog.AddLegalSection.
 //
 // # Constructing
 //
-// To make constructing an AdwAboutWindow as convenient as possible, you can use
-// the function show_about_window which constructs and shows a window.
+// To make constructing an AdwAboutDialog as convenient as possible, you can use
+// the function show_about_dialog which constructs and shows a dialog.
 //
 //    static void
 //    show_about (GtkApplication *app)
@@ -175,7 +175,7 @@ func defaultAboutWindowOverrides(v *AboutWindow) AboutWindowOverrides {
 //        NULL
 //      };
 //
-//      adw_show_about_window (gtk_application_get_active_window (app),
+//      adw_show_about_dialog (GTK_WIDGET (gtk_application_get_active_window (app)),
 //                             "application-name", _("Example"),
 //                             "application-icon", "org.example.App",
 //                             "version", "1.2.3",
@@ -190,74 +190,48 @@ func defaultAboutWindowOverrides(v *AboutWindow) AboutWindowOverrides {
 //
 // # CSS nodes
 //
-// AdwAboutWindow has a main CSS node with the name window and the style class
+// AdwAboutDialog has a main CSS node with the name dialog and the style class
 // .about.
-type AboutWindow struct {
+type AboutDialog struct {
 	_ [0]func() // equal guard
-	Window
+	Dialog
 }
 
 var (
-	_ gtk.Widgetter     = (*AboutWindow)(nil)
-	_ coreglib.Objector = (*AboutWindow)(nil)
+	_ gtk.Widgetter = (*AboutDialog)(nil)
 )
 
 func init() {
-	coreglib.RegisterClassInfo[*AboutWindow, *AboutWindowClass, AboutWindowOverrides](
-		GTypeAboutWindow,
-		initAboutWindowClass,
-		wrapAboutWindow,
-		defaultAboutWindowOverrides,
+	coreglib.RegisterClassInfo[*AboutDialog, *AboutDialogClass, AboutDialogOverrides](
+		GTypeAboutDialog,
+		initAboutDialogClass,
+		wrapAboutDialog,
+		defaultAboutDialogOverrides,
 	)
 }
 
-func initAboutWindowClass(gclass unsafe.Pointer, overrides AboutWindowOverrides, classInitFunc func(*AboutWindowClass)) {
+func initAboutDialogClass(gclass unsafe.Pointer, overrides AboutDialogOverrides, classInitFunc func(*AboutDialogClass)) {
 	if classInitFunc != nil {
-		class := (*AboutWindowClass)(gextras.NewStructNative(gclass))
+		class := (*AboutDialogClass)(gextras.NewStructNative(gclass))
 		classInitFunc(class)
 	}
 }
 
-func wrapAboutWindow(obj *coreglib.Object) *AboutWindow {
-	return &AboutWindow{
-		Window: Window{
-			Window: gtk.Window{
-				Widget: gtk.Widget{
-					InitiallyUnowned: coreglib.InitiallyUnowned{
-						Object: obj,
-					},
+func wrapAboutDialog(obj *coreglib.Object) *AboutDialog {
+	return &AboutDialog{
+		Dialog: Dialog{
+			Widget: gtk.Widget{
+				InitiallyUnowned: coreglib.InitiallyUnowned{
 					Object: obj,
-					Accessible: gtk.Accessible{
-						Object: obj,
-					},
-					Buildable: gtk.Buildable{
-						Object: obj,
-					},
-					ConstraintTarget: gtk.ConstraintTarget{
-						Object: obj,
-					},
 				},
 				Object: obj,
-				Root: gtk.Root{
-					NativeSurface: gtk.NativeSurface{
-						Widget: gtk.Widget{
-							InitiallyUnowned: coreglib.InitiallyUnowned{
-								Object: obj,
-							},
-							Object: obj,
-							Accessible: gtk.Accessible{
-								Object: obj,
-							},
-							Buildable: gtk.Buildable{
-								Object: obj,
-							},
-							ConstraintTarget: gtk.ConstraintTarget{
-								Object: obj,
-							},
-						},
-					},
+				Accessible: gtk.Accessible{
+					Object: obj,
 				},
-				ShortcutManager: gtk.ShortcutManager{
+				Buildable: gtk.Buildable{
+					Object: obj,
+				},
+				ConstraintTarget: gtk.ConstraintTarget{
 					Object: obj,
 				},
 			},
@@ -265,55 +239,55 @@ func wrapAboutWindow(obj *coreglib.Object) *AboutWindow {
 	}
 }
 
-func marshalAboutWindow(p uintptr) (interface{}, error) {
-	return wrapAboutWindow(coreglib.ValueFromNative(unsafe.Pointer(p)).Object()), nil
+func marshalAboutDialog(p uintptr) (interface{}, error) {
+	return wrapAboutDialog(coreglib.ValueFromNative(unsafe.Pointer(p)).Object()), nil
 }
 
 // ConnectActivateLink is emitted when a URL is activated.
 //
 // Applications may connect to it to override the default behavior, which is to
 // call gtk.ShowURI().
-func (self *AboutWindow) ConnectActivateLink(f func(uri string) (ok bool)) coreglib.SignalHandle {
-	return coreglib.ConnectGeneratedClosure(self, "activate-link", false, unsafe.Pointer(C._gotk4_adw1_AboutWindow_ConnectActivateLink), f)
+func (self *AboutDialog) ConnectActivateLink(f func(uri string) (ok bool)) coreglib.SignalHandle {
+	return coreglib.ConnectGeneratedClosure(self, "activate-link", false, unsafe.Pointer(C._gotk4_adw1_AboutDialog_ConnectActivateLink), f)
 }
 
-// NewAboutWindow creates a new AdwAboutWindow.
+// NewAboutDialog creates a new AdwAboutDialog.
 //
 // The function returns the following values:
 //
-//   - aboutWindow: newly created AdwAboutWindow.
+//   - aboutDialog: newly created AdwAboutDialog.
 //
-func NewAboutWindow() *AboutWindow {
-	var _cret *C.GtkWidget // in
+func NewAboutDialog() *AboutDialog {
+	var _cret *C.AdwDialog // in
 
-	_cret = C.adw_about_window_new()
+	_cret = C.adw_about_dialog_new()
 
-	var _aboutWindow *AboutWindow // out
+	var _aboutDialog *AboutDialog // out
 
-	_aboutWindow = wrapAboutWindow(coreglib.Take(unsafe.Pointer(_cret)))
+	_aboutDialog = wrapAboutDialog(coreglib.Take(unsafe.Pointer(_cret)))
 
-	return _aboutWindow
+	return _aboutDialog
 }
 
-// NewAboutWindowFromAppdata creates a new AdwAboutWindow using AppStream
+// NewAboutDialogFromAppdata creates a new AdwAboutDialog using AppStream
 // metadata.
 //
 // This automatically sets the following properties with the following AppStream
 // values:
 //
-// * aboutwindow:application-icon is set from the <id> *
-// aboutwindow:application-name is set from the <name> *
-// aboutwindow:developer-name is set from the <name> within <developer>
-// * aboutwindow:version is set from the version of the latest release
-// * aboutwindow:website is set from the <url type="homepage">
-// * aboutwindow:support-url is set from the <url type="help"> *
-// aboutwindow:issue-url is set from the <url type="bugtracker"> *
-// aboutwindow:license-type is set from the <project_license>. If the license
+// * aboutdialog:application-icon is set from the <id> *
+// aboutdialog:application-name is set from the <name> *
+// aboutdialog:developer-name is set from the <name> within <developer>
+// * aboutdialog:version is set from the version of the latest release
+// * aboutdialog:website is set from the <url type="homepage">
+// * aboutdialog:support-url is set from the <url type="help"> *
+// aboutdialog:issue-url is set from the <url type="bugtracker"> *
+// aboutdialog:license-type is set from the <project_license>. If the license
 // type retrieved from AppStream is not listed in gtk.License, it will be set to
 // GTK_LICENCE_CUSTOM.
 //
-// If release_notes_version is not NULL, aboutwindow:release-notes-version is
-// set to match it, while aboutwindow:release-notes is set from the AppStream
+// If release_notes_version is not NULL, aboutdialog:release-notes-version is
+// set to match it, while aboutdialog:release-notes is set from the AppStream
 // release description for that version.
 //
 // The function takes the following parameters:
@@ -323,12 +297,12 @@ func NewAboutWindow() *AboutWindow {
 //
 // The function returns the following values:
 //
-//   - aboutWindow: newly created AdwAboutWindow.
+//   - aboutDialog: newly created AdwAboutDialog.
 //
-func NewAboutWindowFromAppdata(resourcePath, releaseNotesVersion string) *AboutWindow {
+func NewAboutDialogFromAppdata(resourcePath, releaseNotesVersion string) *AboutDialog {
 	var _arg1 *C.char      // out
 	var _arg2 *C.char      // out
-	var _cret *C.GtkWidget // in
+	var _cret *C.AdwDialog // in
 
 	_arg1 = (*C.char)(unsafe.Pointer(C.CString(resourcePath)))
 	defer C.free(unsafe.Pointer(_arg1))
@@ -337,15 +311,15 @@ func NewAboutWindowFromAppdata(resourcePath, releaseNotesVersion string) *AboutW
 		defer C.free(unsafe.Pointer(_arg2))
 	}
 
-	_cret = C.adw_about_window_new_from_appdata(_arg1, _arg2)
+	_cret = C.adw_about_dialog_new_from_appdata(_arg1, _arg2)
 	runtime.KeepAlive(resourcePath)
 	runtime.KeepAlive(releaseNotesVersion)
 
-	var _aboutWindow *AboutWindow // out
+	var _aboutDialog *AboutDialog // out
 
-	_aboutWindow = wrapAboutWindow(coreglib.Take(unsafe.Pointer(_cret)))
+	_aboutDialog = wrapAboutDialog(coreglib.Take(unsafe.Pointer(_cret)))
 
-	return _aboutWindow
+	return _aboutDialog
 }
 
 // AddAcknowledgementSection adds a section to the Acknowledgements page.
@@ -359,21 +333,21 @@ func NewAboutWindowFromAppdata(resourcePath, releaseNotesVersion string) *AboutW
 //
 // See also:
 //
-// * aboutwindow:developers * aboutwindow:designers * aboutwindow:artists
-// * aboutwindow:documenters * aboutwindow:translator-credits *
-// aboutwindow.AddCreditSection.
+// * aboutdialog:developers * aboutdialog:designers * aboutdialog:artists
+// * aboutdialog:documenters * aboutdialog:translator-credits *
+// aboutdialog.AddCreditSection.
 //
 // The function takes the following parameters:
 //
 //   - name (optional): section name.
 //   - people: list of names.
 //
-func (self *AboutWindow) AddAcknowledgementSection(name string, people []string) {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) AddAcknowledgementSection(name string, people []string) {
+	var _arg0 *C.AdwAboutDialog // out
 	var _arg1 *C.char           // out
 	var _arg2 **C.char          // out
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 	if name != "" {
 		_arg1 = (*C.char)(unsafe.Pointer(C.CString(name)))
 		defer C.free(unsafe.Pointer(_arg1))
@@ -392,7 +366,7 @@ func (self *AboutWindow) AddAcknowledgementSection(name string, people []string)
 		}
 	}
 
-	C.adw_about_window_add_acknowledgement_section(_arg0, _arg1, _arg2)
+	C.adw_about_dialog_add_acknowledgement_section(_arg0, _arg1, _arg2)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(name)
 	runtime.KeepAlive(people)
@@ -407,21 +381,21 @@ func (self *AboutWindow) AddAcknowledgementSection(name string, people []string)
 //
 // See also:
 //
-// * aboutwindow:developers * aboutwindow:designers * aboutwindow:artists
-// * aboutwindow:documenters * aboutwindow:translator-credits *
-// aboutwindow.AddAcknowledgementSection.
+// * aboutdialog:developers * aboutdialog:designers * aboutdialog:artists
+// * aboutdialog:documenters * aboutdialog:translator-credits *
+// aboutdialog.AddAcknowledgementSection.
 //
 // The function takes the following parameters:
 //
 //   - name (optional): section name.
 //   - people: list of names.
 //
-func (self *AboutWindow) AddCreditSection(name string, people []string) {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) AddCreditSection(name string, people []string) {
+	var _arg0 *C.AdwAboutDialog // out
 	var _arg1 *C.char           // out
 	var _arg2 **C.char          // out
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 	if name != "" {
 		_arg1 = (*C.char)(unsafe.Pointer(C.CString(name)))
 		defer C.free(unsafe.Pointer(_arg1))
@@ -440,7 +414,7 @@ func (self *AboutWindow) AddCreditSection(name string, people []string) {
 		}
 	}
 
-	C.adw_about_window_add_credit_section(_arg0, _arg1, _arg2)
+	C.adw_about_dialog_add_credit_section(_arg0, _arg1, _arg2)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(name)
 	runtime.KeepAlive(people)
@@ -451,8 +425,8 @@ func (self *AboutWindow) AddCreditSection(name string, people []string) {
 // Extra sections will be displayed below the application's own information.
 //
 // The parameters copyright, license_type and license will be used to present
-// the it the same way as aboutwindow:copyright, aboutwindow:license-type and
-// aboutwindow:license are for the application's own information.
+// the it the same way as aboutdialog:copyright, aboutdialog:license-type and
+// aboutdialog:license are for the application's own information.
 //
 // See those properties for more details.
 //
@@ -460,25 +434,25 @@ func (self *AboutWindow) AddCreditSection(name string, people []string) {
 //
 // Examples:
 //
-//    adw_about_window_add_legal_section (ADW_ABOUT_WINDOW (about),
+//    adw_about_dialog_add_legal_section (ADW_ABOUT_DIALOG (about),
 //                                        _("Copyright and a known license"),
 //                                        "© 2022 Example",
 //                                        GTK_LICENSE_LGPL_2_1,
 //                                        NULL);
 //
-//    adw_about_window_add_legal_section (ADW_ABOUT_WINDOW (about),
+//    adw_about_dialog_add_legal_section (ADW_ABOUT_DIALOG (about),
 //                                        _("Copyright and custom license"),
 //                                        "© 2022 Example",
 //                                        GTK_LICENSE_CUSTOM,
 //                                        "Custom license text");
 //
-//    adw_about_window_add_legal_section (ADW_ABOUT_WINDOW (about),
+//    adw_about_dialog_add_legal_section (ADW_ABOUT_DIALOG (about),
 //                                        _("Copyright only"),
 //                                        "© 2022 Example",
 //                                        GTK_LICENSE_UNKNOWN,
 //                                        NULL);
 //
-//    adw_about_window_add_legal_section (ADW_ABOUT_WINDOW (about),
+//    adw_about_dialog_add_legal_section (ADW_ABOUT_DIALOG (about),
 //                                        _("Custom license only"),
 //                                        NULL,
 //                                        GTK_LICENSE_CUSTOM,
@@ -491,14 +465,14 @@ func (self *AboutWindow) AddCreditSection(name string, people []string) {
 //   - licenseType: type of license.
 //   - license (optional): custom license information.
 //
-func (self *AboutWindow) AddLegalSection(title, copyright string, licenseType gtk.License, license string) {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) AddLegalSection(title, copyright string, licenseType gtk.License, license string) {
+	var _arg0 *C.AdwAboutDialog // out
 	var _arg1 *C.char           // out
 	var _arg2 *C.char           // out
 	var _arg3 C.GtkLicense      // out
 	var _arg4 *C.char           // out
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 	_arg1 = (*C.char)(unsafe.Pointer(C.CString(title)))
 	defer C.free(unsafe.Pointer(_arg1))
 	if copyright != "" {
@@ -511,7 +485,7 @@ func (self *AboutWindow) AddLegalSection(title, copyright string, licenseType gt
 		defer C.free(unsafe.Pointer(_arg4))
 	}
 
-	C.adw_about_window_add_legal_section(_arg0, _arg1, _arg2, _arg3, _arg4)
+	C.adw_about_dialog_add_legal_section(_arg0, _arg1, _arg2, _arg3, _arg4)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(title)
 	runtime.KeepAlive(copyright)
@@ -525,25 +499,25 @@ func (self *AboutWindow) AddLegalSection(title, copyright string, licenseType gt
 //
 // Underlines in title will be interpreted as indicating a mnemonic.
 //
-// See aboutwindow:website.
+// See aboutdialog:website.
 //
 // The function takes the following parameters:
 //
 //   - title: link title.
 //   - url: link URL.
 //
-func (self *AboutWindow) AddLink(title, url string) {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) AddLink(title, url string) {
+	var _arg0 *C.AdwAboutDialog // out
 	var _arg1 *C.char           // out
 	var _arg2 *C.char           // out
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 	_arg1 = (*C.char)(unsafe.Pointer(C.CString(title)))
 	defer C.free(unsafe.Pointer(_arg1))
 	_arg2 = (*C.char)(unsafe.Pointer(C.CString(url)))
 	defer C.free(unsafe.Pointer(_arg2))
 
-	C.adw_about_window_add_link(_arg0, _arg1, _arg2)
+	C.adw_about_dialog_add_link(_arg0, _arg1, _arg2)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(title)
 	runtime.KeepAlive(url)
@@ -555,13 +529,13 @@ func (self *AboutWindow) AddLink(title, url string) {
 //
 //   - utf8: application icon name.
 //
-func (self *AboutWindow) ApplicationIcon() string {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) ApplicationIcon() string {
+	var _arg0 *C.AdwAboutDialog // out
 	var _cret *C.char           // in
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 
-	_cret = C.adw_about_window_get_application_icon(_arg0)
+	_cret = C.adw_about_dialog_get_application_icon(_arg0)
 	runtime.KeepAlive(self)
 
 	var _utf8 string // out
@@ -577,13 +551,13 @@ func (self *AboutWindow) ApplicationIcon() string {
 //
 //   - utf8: application name.
 //
-func (self *AboutWindow) ApplicationName() string {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) ApplicationName() string {
+	var _arg0 *C.AdwAboutDialog // out
 	var _cret *C.char           // in
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 
-	_cret = C.adw_about_window_get_application_name(_arg0)
+	_cret = C.adw_about_dialog_get_application_name(_arg0)
 	runtime.KeepAlive(self)
 
 	var _utf8 string // out
@@ -599,13 +573,13 @@ func (self *AboutWindow) ApplicationName() string {
 //
 //   - utf8s (optional): list of artists.
 //
-func (self *AboutWindow) Artists() []string {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) Artists() []string {
+	var _arg0 *C.AdwAboutDialog // out
 	var _cret **C.char          // in
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 
-	_cret = C.adw_about_window_get_artists(_arg0)
+	_cret = C.adw_about_dialog_get_artists(_arg0)
 	runtime.KeepAlive(self)
 
 	var _utf8s []string // out
@@ -635,13 +609,13 @@ func (self *AboutWindow) Artists() []string {
 //
 //   - utf8: comments.
 //
-func (self *AboutWindow) Comments() string {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) Comments() string {
+	var _arg0 *C.AdwAboutDialog // out
 	var _cret *C.char           // in
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 
-	_cret = C.adw_about_window_get_comments(_arg0)
+	_cret = C.adw_about_dialog_get_comments(_arg0)
 	runtime.KeepAlive(self)
 
 	var _utf8 string // out
@@ -657,13 +631,13 @@ func (self *AboutWindow) Comments() string {
 //
 //   - utf8: copyright information.
 //
-func (self *AboutWindow) Copyright() string {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) Copyright() string {
+	var _arg0 *C.AdwAboutDialog // out
 	var _cret *C.char           // in
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 
-	_cret = C.adw_about_window_get_copyright(_arg0)
+	_cret = C.adw_about_dialog_get_copyright(_arg0)
 	runtime.KeepAlive(self)
 
 	var _utf8 string // out
@@ -679,13 +653,13 @@ func (self *AboutWindow) Copyright() string {
 //
 //   - utf8: debug information.
 //
-func (self *AboutWindow) DebugInfo() string {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) DebugInfo() string {
+	var _arg0 *C.AdwAboutDialog // out
 	var _cret *C.char           // in
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 
-	_cret = C.adw_about_window_get_debug_info(_arg0)
+	_cret = C.adw_about_dialog_get_debug_info(_arg0)
 	runtime.KeepAlive(self)
 
 	var _utf8 string // out
@@ -701,13 +675,13 @@ func (self *AboutWindow) DebugInfo() string {
 //
 //   - utf8: debug information filename.
 //
-func (self *AboutWindow) DebugInfoFilename() string {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) DebugInfoFilename() string {
+	var _arg0 *C.AdwAboutDialog // out
 	var _cret *C.char           // in
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 
-	_cret = C.adw_about_window_get_debug_info_filename(_arg0)
+	_cret = C.adw_about_dialog_get_debug_info_filename(_arg0)
 	runtime.KeepAlive(self)
 
 	var _utf8 string // out
@@ -723,13 +697,13 @@ func (self *AboutWindow) DebugInfoFilename() string {
 //
 //   - utf8s (optional): list of designers.
 //
-func (self *AboutWindow) Designers() []string {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) Designers() []string {
+	var _arg0 *C.AdwAboutDialog // out
 	var _cret **C.char          // in
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 
-	_cret = C.adw_about_window_get_designers(_arg0)
+	_cret = C.adw_about_dialog_get_designers(_arg0)
 	runtime.KeepAlive(self)
 
 	var _utf8s []string // out
@@ -759,13 +733,13 @@ func (self *AboutWindow) Designers() []string {
 //
 //   - utf8: developer_name.
 //
-func (self *AboutWindow) DeveloperName() string {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) DeveloperName() string {
+	var _arg0 *C.AdwAboutDialog // out
 	var _cret *C.char           // in
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 
-	_cret = C.adw_about_window_get_developer_name(_arg0)
+	_cret = C.adw_about_dialog_get_developer_name(_arg0)
 	runtime.KeepAlive(self)
 
 	var _utf8 string // out
@@ -781,13 +755,13 @@ func (self *AboutWindow) DeveloperName() string {
 //
 //   - utf8s (optional): list of developers.
 //
-func (self *AboutWindow) Developers() []string {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) Developers() []string {
+	var _arg0 *C.AdwAboutDialog // out
 	var _cret **C.char          // in
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 
-	_cret = C.adw_about_window_get_developers(_arg0)
+	_cret = C.adw_about_dialog_get_developers(_arg0)
 	runtime.KeepAlive(self)
 
 	var _utf8s []string // out
@@ -817,13 +791,13 @@ func (self *AboutWindow) Developers() []string {
 //
 //   - utf8s (optional): list of documenters.
 //
-func (self *AboutWindow) Documenters() []string {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) Documenters() []string {
+	var _arg0 *C.AdwAboutDialog // out
 	var _cret **C.char          // in
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 
-	_cret = C.adw_about_window_get_documenters(_arg0)
+	_cret = C.adw_about_dialog_get_documenters(_arg0)
 	runtime.KeepAlive(self)
 
 	var _utf8s []string // out
@@ -853,13 +827,13 @@ func (self *AboutWindow) Documenters() []string {
 //
 //   - utf8: issue tracker URL.
 //
-func (self *AboutWindow) IssueURL() string {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) IssueURL() string {
+	var _arg0 *C.AdwAboutDialog // out
 	var _cret *C.char           // in
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 
-	_cret = C.adw_about_window_get_issue_url(_arg0)
+	_cret = C.adw_about_dialog_get_issue_url(_arg0)
 	runtime.KeepAlive(self)
 
 	var _utf8 string // out
@@ -875,13 +849,13 @@ func (self *AboutWindow) IssueURL() string {
 //
 //   - utf8: license.
 //
-func (self *AboutWindow) License() string {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) License() string {
+	var _arg0 *C.AdwAboutDialog // out
 	var _cret *C.char           // in
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 
-	_cret = C.adw_about_window_get_license(_arg0)
+	_cret = C.adw_about_dialog_get_license(_arg0)
 	runtime.KeepAlive(self)
 
 	var _utf8 string // out
@@ -897,13 +871,13 @@ func (self *AboutWindow) License() string {
 //
 //   - license type.
 //
-func (self *AboutWindow) LicenseType() gtk.License {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) LicenseType() gtk.License {
+	var _arg0 *C.AdwAboutDialog // out
 	var _cret C.GtkLicense      // in
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 
-	_cret = C.adw_about_window_get_license_type(_arg0)
+	_cret = C.adw_about_dialog_get_license_type(_arg0)
 	runtime.KeepAlive(self)
 
 	var _license gtk.License // out
@@ -919,13 +893,13 @@ func (self *AboutWindow) LicenseType() gtk.License {
 //
 //   - utf8: release notes.
 //
-func (self *AboutWindow) ReleaseNotes() string {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) ReleaseNotes() string {
+	var _arg0 *C.AdwAboutDialog // out
 	var _cret *C.char           // in
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 
-	_cret = C.adw_about_window_get_release_notes(_arg0)
+	_cret = C.adw_about_dialog_get_release_notes(_arg0)
 	runtime.KeepAlive(self)
 
 	var _utf8 string // out
@@ -942,13 +916,13 @@ func (self *AboutWindow) ReleaseNotes() string {
 //
 //   - utf8: release notes version.
 //
-func (self *AboutWindow) ReleaseNotesVersion() string {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) ReleaseNotesVersion() string {
+	var _arg0 *C.AdwAboutDialog // out
 	var _cret *C.char           // in
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 
-	_cret = C.adw_about_window_get_release_notes_version(_arg0)
+	_cret = C.adw_about_dialog_get_release_notes_version(_arg0)
 	runtime.KeepAlive(self)
 
 	var _utf8 string // out
@@ -964,13 +938,13 @@ func (self *AboutWindow) ReleaseNotesVersion() string {
 //
 //   - utf8: support page URL.
 //
-func (self *AboutWindow) SupportURL() string {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) SupportURL() string {
+	var _arg0 *C.AdwAboutDialog // out
 	var _cret *C.char           // in
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 
-	_cret = C.adw_about_window_get_support_url(_arg0)
+	_cret = C.adw_about_dialog_get_support_url(_arg0)
 	runtime.KeepAlive(self)
 
 	var _utf8 string // out
@@ -986,13 +960,13 @@ func (self *AboutWindow) SupportURL() string {
 //
 //   - utf8: translator credits string.
 //
-func (self *AboutWindow) TranslatorCredits() string {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) TranslatorCredits() string {
+	var _arg0 *C.AdwAboutDialog // out
 	var _cret *C.char           // in
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 
-	_cret = C.adw_about_window_get_translator_credits(_arg0)
+	_cret = C.adw_about_dialog_get_translator_credits(_arg0)
 	runtime.KeepAlive(self)
 
 	var _utf8 string // out
@@ -1008,13 +982,13 @@ func (self *AboutWindow) TranslatorCredits() string {
 //
 //   - utf8: version.
 //
-func (self *AboutWindow) Version() string {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) Version() string {
+	var _arg0 *C.AdwAboutDialog // out
 	var _cret *C.char           // in
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 
-	_cret = C.adw_about_window_get_version(_arg0)
+	_cret = C.adw_about_dialog_get_version(_arg0)
 	runtime.KeepAlive(self)
 
 	var _utf8 string // out
@@ -1030,13 +1004,13 @@ func (self *AboutWindow) Version() string {
 //
 //   - utf8: website URL.
 //
-func (self *AboutWindow) Website() string {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) Website() string {
+	var _arg0 *C.AdwAboutDialog // out
 	var _cret *C.char           // in
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 
-	_cret = C.adw_about_window_get_website(_arg0)
+	_cret = C.adw_about_dialog_get_website(_arg0)
 	runtime.KeepAlive(self)
 
 	var _utf8 string // out
@@ -1054,15 +1028,15 @@ func (self *AboutWindow) Website() string {
 //
 //   - applicationIcon: application icon name.
 //
-func (self *AboutWindow) SetApplicationIcon(applicationIcon string) {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) SetApplicationIcon(applicationIcon string) {
+	var _arg0 *C.AdwAboutDialog // out
 	var _arg1 *C.char           // out
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 	_arg1 = (*C.char)(unsafe.Pointer(C.CString(applicationIcon)))
 	defer C.free(unsafe.Pointer(_arg1))
 
-	C.adw_about_window_set_application_icon(_arg0, _arg1)
+	C.adw_about_dialog_set_application_icon(_arg0, _arg1)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(applicationIcon)
 }
@@ -1075,15 +1049,15 @@ func (self *AboutWindow) SetApplicationIcon(applicationIcon string) {
 //
 //   - applicationName: application name.
 //
-func (self *AboutWindow) SetApplicationName(applicationName string) {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) SetApplicationName(applicationName string) {
+	var _arg0 *C.AdwAboutDialog // out
 	var _arg1 *C.char           // out
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 	_arg1 = (*C.char)(unsafe.Pointer(C.CString(applicationName)))
 	defer C.free(unsafe.Pointer(_arg1))
 
-	C.adw_about_window_set_application_name(_arg0, _arg1)
+	C.adw_about_dialog_set_application_name(_arg0, _arg1)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(applicationName)
 }
@@ -1097,19 +1071,19 @@ func (self *AboutWindow) SetApplicationName(applicationName string) {
 //
 // See also:
 //
-// * aboutwindow:developers * aboutwindow:designers * aboutwindow:documenters
-// * aboutwindow:translator-credits * aboutwindow.AddCreditSection *
-// aboutwindow.AddAcknowledgementSection.
+// * aboutdialog:developers * aboutdialog:designers * aboutdialog:documenters
+// * aboutdialog:translator-credits * aboutdialog.AddCreditSection *
+// aboutdialog.AddAcknowledgementSection.
 //
 // The function takes the following parameters:
 //
 //   - artists (optional): list of artists.
 //
-func (self *AboutWindow) SetArtists(artists []string) {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) SetArtists(artists []string) {
+	var _arg0 *C.AdwAboutDialog // out
 	var _arg1 **C.char          // out
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 	{
 		_arg1 = (**C.char)(C.calloc(C.size_t((len(artists) + 1)), C.size_t(unsafe.Sizeof(uint(0)))))
 		defer C.free(unsafe.Pointer(_arg1))
@@ -1124,7 +1098,7 @@ func (self *AboutWindow) SetArtists(artists []string) {
 		}
 	}
 
-	C.adw_about_window_set_artists(_arg0, _arg1)
+	C.adw_about_dialog_set_artists(_arg0, _arg1)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(artists)
 }
@@ -1140,15 +1114,15 @@ func (self *AboutWindow) SetArtists(artists []string) {
 //
 //   - comments: comments.
 //
-func (self *AboutWindow) SetComments(comments string) {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) SetComments(comments string) {
+	var _arg0 *C.AdwAboutDialog // out
 	var _arg1 *C.char           // out
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 	_arg1 = (*C.char)(unsafe.Pointer(C.CString(comments)))
 	defer C.free(unsafe.Pointer(_arg1))
 
-	C.adw_about_window_set_comments(_arg0, _arg1)
+	C.adw_about_dialog_set_comments(_arg0, _arg1)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(comments)
 }
@@ -1161,22 +1135,22 @@ func (self *AboutWindow) SetComments(comments string) {
 // The copyright information will be displayed on the Legal page, before the
 // application license.
 //
-// aboutwindow.AddLegalSection can be used to add copyright information for the
+// aboutdialog.AddLegalSection can be used to add copyright information for the
 // application dependencies or other components.
 //
 // The function takes the following parameters:
 //
 //   - copyright information.
 //
-func (self *AboutWindow) SetCopyright(copyright string) {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) SetCopyright(copyright string) {
+	var _arg0 *C.AdwAboutDialog // out
 	var _arg1 *C.char           // out
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 	_arg1 = (*C.char)(unsafe.Pointer(C.CString(copyright)))
 	defer C.free(unsafe.Pointer(_arg1))
 
-	C.adw_about_window_set_copyright(_arg0, _arg1)
+	C.adw_about_dialog_set_copyright(_arg0, _arg1)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(copyright)
 }
@@ -1186,8 +1160,8 @@ func (self *AboutWindow) SetCopyright(copyright string) {
 // Debug information will be shown on the Troubleshooting page. It's intended to
 // be attached to issue reports when reporting issues against the application.
 //
-// AdwAboutWindow provides a quick way to save debug information to a file.
-// When saving, aboutwindow:debug-info-filename would be used as the suggested
+// AdwAboutDialog provides a quick way to save debug information to a file.
+// When saving, aboutdialog:debug-info-filename would be used as the suggested
 // filename.
 //
 // Debug information cannot contain markup or links.
@@ -1196,15 +1170,15 @@ func (self *AboutWindow) SetCopyright(copyright string) {
 //
 //   - debugInfo: debug information.
 //
-func (self *AboutWindow) SetDebugInfo(debugInfo string) {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) SetDebugInfo(debugInfo string) {
+	var _arg0 *C.AdwAboutDialog // out
 	var _arg1 *C.char           // out
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 	_arg1 = (*C.char)(unsafe.Pointer(C.CString(debugInfo)))
 	defer C.free(unsafe.Pointer(_arg1))
 
-	C.adw_about_window_set_debug_info(_arg0, _arg1)
+	C.adw_about_dialog_set_debug_info(_arg0, _arg1)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(debugInfo)
 }
@@ -1214,21 +1188,21 @@ func (self *AboutWindow) SetDebugInfo(debugInfo string) {
 // It will be used as the suggested filename when saving debug information to a
 // file.
 //
-// See aboutwindow:debug-info.
+// See aboutdialog:debug-info.
 //
 // The function takes the following parameters:
 //
 //   - filename: debug info filename.
 //
-func (self *AboutWindow) SetDebugInfoFilename(filename string) {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) SetDebugInfoFilename(filename string) {
+	var _arg0 *C.AdwAboutDialog // out
 	var _arg1 *C.char           // out
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 	_arg1 = (*C.char)(unsafe.Pointer(C.CString(filename)))
 	defer C.free(unsafe.Pointer(_arg1))
 
-	C.adw_about_window_set_debug_info_filename(_arg0, _arg1)
+	C.adw_about_dialog_set_debug_info_filename(_arg0, _arg1)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(filename)
 }
@@ -1242,19 +1216,19 @@ func (self *AboutWindow) SetDebugInfoFilename(filename string) {
 //
 // See also:
 //
-// * aboutwindow:developers * aboutwindow:artists * aboutwindow:documenters
-// * aboutwindow:translator-credits * aboutwindow.AddCreditSection *
-// aboutwindow.AddAcknowledgementSection.
+// * aboutdialog:developers * aboutdialog:artists * aboutdialog:documenters
+// * aboutdialog:translator-credits * aboutdialog.AddCreditSection *
+// aboutdialog.AddAcknowledgementSection.
 //
 // The function takes the following parameters:
 //
 //   - designers (optional): list of designers.
 //
-func (self *AboutWindow) SetDesigners(designers []string) {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) SetDesigners(designers []string) {
+	var _arg0 *C.AdwAboutDialog // out
 	var _arg1 **C.char          // out
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 	{
 		_arg1 = (**C.char)(C.calloc(C.size_t((len(designers) + 1)), C.size_t(unsafe.Sizeof(uint(0)))))
 		defer C.free(unsafe.Pointer(_arg1))
@@ -1269,7 +1243,7 @@ func (self *AboutWindow) SetDesigners(designers []string) {
 		}
 	}
 
-	C.adw_about_window_set_designers(_arg0, _arg1)
+	C.adw_about_dialog_set_designers(_arg0, _arg1)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(designers)
 }
@@ -1281,21 +1255,21 @@ func (self *AboutWindow) SetDesigners(designers []string) {
 // If the application is developed by multiple people, the developer name can
 // be set to values like "AppName team", "AppName developers" or "The AppName
 // project", and the individual contributors can be listed on the Credits page,
-// with aboutwindow:developers and related properties.
+// with aboutdialog:developers and related properties.
 //
 // The function takes the following parameters:
 //
 //   - developerName: developer name.
 //
-func (self *AboutWindow) SetDeveloperName(developerName string) {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) SetDeveloperName(developerName string) {
+	var _arg0 *C.AdwAboutDialog // out
 	var _arg1 *C.char           // out
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 	_arg1 = (*C.char)(unsafe.Pointer(C.CString(developerName)))
 	defer C.free(unsafe.Pointer(_arg1))
 
-	C.adw_about_window_set_developer_name(_arg0, _arg1)
+	C.adw_about_dialog_set_developer_name(_arg0, _arg1)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(developerName)
 }
@@ -1309,19 +1283,19 @@ func (self *AboutWindow) SetDeveloperName(developerName string) {
 //
 // See also:
 //
-// * aboutwindow:designers * aboutwindow:artists * aboutwindow:documenters
-// * aboutwindow:translator-credits * aboutwindow.AddCreditSection *
-// aboutwindow.AddAcknowledgementSection.
+// * aboutdialog:designers * aboutdialog:artists * aboutdialog:documenters
+// * aboutdialog:translator-credits * aboutdialog.AddCreditSection *
+// aboutdialog.AddAcknowledgementSection.
 //
 // The function takes the following parameters:
 //
 //   - developers (optional): list of developers.
 //
-func (self *AboutWindow) SetDevelopers(developers []string) {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) SetDevelopers(developers []string) {
+	var _arg0 *C.AdwAboutDialog // out
 	var _arg1 **C.char          // out
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 	{
 		_arg1 = (**C.char)(C.calloc(C.size_t((len(developers) + 1)), C.size_t(unsafe.Sizeof(uint(0)))))
 		defer C.free(unsafe.Pointer(_arg1))
@@ -1336,7 +1310,7 @@ func (self *AboutWindow) SetDevelopers(developers []string) {
 		}
 	}
 
-	C.adw_about_window_set_developers(_arg0, _arg1)
+	C.adw_about_dialog_set_developers(_arg0, _arg1)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(developers)
 }
@@ -1350,19 +1324,19 @@ func (self *AboutWindow) SetDevelopers(developers []string) {
 //
 // See also:
 //
-// * aboutwindow:developers * aboutwindow:designers * aboutwindow:artists
-// * aboutwindow:translator-credits * aboutwindow.AddCreditSection *
-// aboutwindow.AddAcknowledgementSection.
+// * aboutdialog:developers * aboutdialog:designers * aboutdialog:artists
+// * aboutdialog:translator-credits * aboutdialog.AddCreditSection *
+// aboutdialog.AddAcknowledgementSection.
 //
 // The function takes the following parameters:
 //
 //   - documenters (optional): list of documenters.
 //
-func (self *AboutWindow) SetDocumenters(documenters []string) {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) SetDocumenters(documenters []string) {
+	var _arg0 *C.AdwAboutDialog // out
 	var _arg1 **C.char          // out
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 	{
 		_arg1 = (**C.char)(C.calloc(C.size_t((len(documenters) + 1)), C.size_t(unsafe.Sizeof(uint(0)))))
 		defer C.free(unsafe.Pointer(_arg1))
@@ -1377,7 +1351,7 @@ func (self *AboutWindow) SetDocumenters(documenters []string) {
 		}
 	}
 
-	C.adw_about_window_set_documenters(_arg0, _arg1)
+	C.adw_about_dialog_set_documenters(_arg0, _arg1)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(documenters)
 }
@@ -1390,15 +1364,15 @@ func (self *AboutWindow) SetDocumenters(documenters []string) {
 //
 //   - issueUrl: issue tracker URL.
 //
-func (self *AboutWindow) SetIssueURL(issueUrl string) {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) SetIssueURL(issueUrl string) {
+	var _arg0 *C.AdwAboutDialog // out
 	var _arg1 *C.char           // out
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 	_arg1 = (*C.char)(unsafe.Pointer(C.CString(issueUrl)))
 	defer C.free(unsafe.Pointer(_arg1))
 
-	C.adw_about_window_set_issue_url(_arg0, _arg1)
+	C.adw_about_dialog_set_issue_url(_arg0, _arg1)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(issueUrl)
 }
@@ -1406,64 +1380,64 @@ func (self *AboutWindow) SetIssueURL(issueUrl string) {
 // SetLicense sets the license for self.
 //
 // This can be used to set a custom text for the license if it can't be set via
-// aboutwindow:license-type.
+// aboutdialog:license-type.
 //
-// When set, aboutwindow:license-type will be set to GTK_LICENSE_CUSTOM.
+// When set, aboutdialog:license-type will be set to GTK_LICENSE_CUSTOM.
 //
 // The license text will be displayed on the Legal page, below the copyright
 // information.
 //
 // License text can contain Pango markup and links.
 //
-// aboutwindow.AddLegalSection can be used to add license information for the
+// aboutdialog.AddLegalSection can be used to add license information for the
 // application dependencies or other components.
 //
 // The function takes the following parameters:
 //
 //   - license: license.
 //
-func (self *AboutWindow) SetLicense(license string) {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) SetLicense(license string) {
+	var _arg0 *C.AdwAboutDialog // out
 	var _arg1 *C.char           // out
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 	_arg1 = (*C.char)(unsafe.Pointer(C.CString(license)))
 	defer C.free(unsafe.Pointer(_arg1))
 
-	C.adw_about_window_set_license(_arg0, _arg1)
+	C.adw_about_dialog_set_license(_arg0, _arg1)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(license)
 }
 
 // SetLicenseType sets the license for self from a list of known licenses.
 //
-// If the application's license is not in the list, aboutwindow:license
+// If the application's license is not in the list, aboutdialog:license
 // can be used instead. The license type will be automatically set to
 // GTK_LICENSE_CUSTOM in that case.
 //
 // If license_type is GTK_LICENSE_UNKNOWN, no information will be displayed.
 //
-// If license_type is different from GTK_LICENSE_CUSTOM. aboutwindow:license
+// If license_type is different from GTK_LICENSE_CUSTOM. aboutdialog:license
 // will be cleared out.
 //
 // The license description will be displayed on the Legal page, below the
 // copyright information.
 //
-// aboutwindow.AddLegalSection can be used to add license information for the
+// aboutdialog.AddLegalSection can be used to add license information for the
 // application dependencies or other components.
 //
 // The function takes the following parameters:
 //
 //   - licenseType: license type.
 //
-func (self *AboutWindow) SetLicenseType(licenseType gtk.License) {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) SetLicenseType(licenseType gtk.License) {
+	var _arg0 *C.AdwAboutDialog // out
 	var _arg1 C.GtkLicense      // out
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 	_arg1 = C.GtkLicense(licenseType)
 
-	C.adw_about_window_set_license_type(_arg0, _arg1)
+	C.adw_about_dialog_set_license_type(_arg0, _arg1)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(licenseType)
 }
@@ -1488,23 +1462,23 @@ func (self *AboutWindow) SetLicenseType(licenseType gtk.License) {
 //
 // Nested lists are not supported.
 //
-// AdwAboutWindow displays the version above the release notes. If set,
-// the aboutwindow:release-notes-version of the property will be used as the
-// version; otherwise, aboutwindow:version is used.
+// AdwAboutDialog displays the version above the release notes. If set,
+// the aboutdialog:release-notes-version of the property will be used as the
+// version; otherwise, aboutdialog:version is used.
 //
 // The function takes the following parameters:
 //
 //   - releaseNotes: release notes.
 //
-func (self *AboutWindow) SetReleaseNotes(releaseNotes string) {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) SetReleaseNotes(releaseNotes string) {
+	var _arg0 *C.AdwAboutDialog // out
 	var _arg1 *C.char           // out
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 	_arg1 = (*C.char)(unsafe.Pointer(C.CString(releaseNotes)))
 	defer C.free(unsafe.Pointer(_arg1))
 
-	C.adw_about_window_set_release_notes(_arg0, _arg1)
+	C.adw_about_dialog_set_release_notes(_arg0, _arg1)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(releaseNotes)
 }
@@ -1515,26 +1489,26 @@ func (self *AboutWindow) SetReleaseNotes(releaseNotes string) {
 // The release notes version is displayed on the What's New page, above the
 // release notes.
 //
-// If not set, aboutwindow:version will be used instead.
+// If not set, aboutdialog:version will be used instead.
 //
 // For example, an application with the current version 2.0.2 might want to keep
 // the release notes from 2.0.0, and set the release notes version accordingly.
 //
-// See aboutwindow:release-notes.
+// See aboutdialog:release-notes.
 //
 // The function takes the following parameters:
 //
 //   - version: release notes version.
 //
-func (self *AboutWindow) SetReleaseNotesVersion(version string) {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) SetReleaseNotesVersion(version string) {
+	var _arg0 *C.AdwAboutDialog // out
 	var _arg1 *C.char           // out
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 	_arg1 = (*C.char)(unsafe.Pointer(C.CString(version)))
 	defer C.free(unsafe.Pointer(_arg1))
 
-	C.adw_about_window_set_release_notes_version(_arg0, _arg1)
+	C.adw_about_dialog_set_release_notes_version(_arg0, _arg1)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(version)
 }
@@ -1547,15 +1521,15 @@ func (self *AboutWindow) SetReleaseNotesVersion(version string) {
 //
 //   - supportUrl: support page URL.
 //
-func (self *AboutWindow) SetSupportURL(supportUrl string) {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) SetSupportURL(supportUrl string) {
+	var _arg0 *C.AdwAboutDialog // out
 	var _arg1 *C.char           // out
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 	_arg1 = (*C.char)(unsafe.Pointer(C.CString(supportUrl)))
 	defer C.free(unsafe.Pointer(_arg1))
 
-	C.adw_about_window_set_support_url(_arg0, _arg1)
+	C.adw_about_dialog_set_support_url(_arg0, _arg1)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(supportUrl)
 }
@@ -1572,23 +1546,23 @@ func (self *AboutWindow) SetSupportURL(supportUrl string) {
 //
 // See also:
 //
-// * aboutwindow:developers * aboutwindow:designers * aboutwindow:artists
-// * aboutwindow:documenters * aboutwindow.AddCreditSection *
-// aboutwindow.AddAcknowledgementSection.
+// * aboutdialog:developers * aboutdialog:designers * aboutdialog:artists
+// * aboutdialog:documenters * aboutdialog.AddCreditSection *
+// aboutdialog.AddAcknowledgementSection.
 //
 // The function takes the following parameters:
 //
 //   - translatorCredits: translator credits.
 //
-func (self *AboutWindow) SetTranslatorCredits(translatorCredits string) {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) SetTranslatorCredits(translatorCredits string) {
+	var _arg0 *C.AdwAboutDialog // out
 	var _arg1 *C.char           // out
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 	_arg1 = (*C.char)(unsafe.Pointer(C.CString(translatorCredits)))
 	defer C.free(unsafe.Pointer(_arg1))
 
-	C.adw_about_window_set_translator_credits(_arg0, _arg1)
+	C.adw_about_dialog_set_translator_credits(_arg0, _arg1)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(translatorCredits)
 }
@@ -1597,22 +1571,22 @@ func (self *AboutWindow) SetTranslatorCredits(translatorCredits string) {
 //
 // The version is displayed on the main page.
 //
-// If aboutwindow:release-notes-version is not set, the version will also be
+// If aboutdialog:release-notes-version is not set, the version will also be
 // displayed above the release notes on the What's New page.
 //
 // The function takes the following parameters:
 //
 //   - version: version.
 //
-func (self *AboutWindow) SetVersion(version string) {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) SetVersion(version string) {
+	var _arg0 *C.AdwAboutDialog // out
 	var _arg1 *C.char           // out
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 	_arg1 = (*C.char)(unsafe.Pointer(C.CString(version)))
 	defer C.free(unsafe.Pointer(_arg1))
 
-	C.adw_about_window_set_version(_arg0, _arg1)
+	C.adw_about_dialog_set_version(_arg0, _arg1)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(version)
 }
@@ -1622,21 +1596,21 @@ func (self *AboutWindow) SetVersion(version string) {
 // Website is displayed on the Details page, below comments, or on the main page
 // if the Details page doesn't have any other content.
 //
-// Applications can add other links below, see aboutwindow.AddLink.
+// Applications can add other links below, see aboutdialog.AddLink.
 //
 // The function takes the following parameters:
 //
 //   - website URL.
 //
-func (self *AboutWindow) SetWebsite(website string) {
-	var _arg0 *C.AdwAboutWindow // out
+func (self *AboutDialog) SetWebsite(website string) {
+	var _arg0 *C.AdwAboutDialog // out
 	var _arg1 *C.char           // out
 
-	_arg0 = (*C.AdwAboutWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+	_arg0 = (*C.AdwAboutDialog)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 	_arg1 = (*C.char)(unsafe.Pointer(C.CString(website)))
 	defer C.free(unsafe.Pointer(_arg1))
 
-	C.adw_about_window_set_website(_arg0, _arg1)
+	C.adw_about_dialog_set_website(_arg0, _arg1)
 	runtime.KeepAlive(self)
 	runtime.KeepAlive(website)
 }

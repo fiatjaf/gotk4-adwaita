@@ -8,6 +8,7 @@ import (
 
 	"github.com/diamondburned/gotk4/pkg/core/gextras"
 	coreglib "github.com/diamondburned/gotk4/pkg/core/glib"
+	"github.com/diamondburned/gotk4/pkg/gio/v2"
 	"github.com/diamondburned/gotk4/pkg/gtk/v4"
 )
 
@@ -59,6 +60,11 @@ func defaultWindowOverrides(v *Window) WindowOverrides {
 //
 // Using gtk.Window:titlebar or gtk.Window:child is not supported and will
 // result in a crash. Use window:content instead.
+//
+// # Dialogs
+//
+// AdwWindow can contain dialog. Use dialog.Present with the window or a widget
+// within a window to show a dialog.
 //
 // # Breakpoints
 //
@@ -270,6 +276,59 @@ func (self *Window) CurrentBreakpoint() *Breakpoint {
 	}
 
 	return _breakpoint
+}
+
+// Dialogs returns a gio.ListModel that contains the open dialogs of self.
+//
+// This can be used to keep an up-to-date view.
+//
+// The function returns the following values:
+//
+//   - listModel: list model for the dialogs of self.
+//
+func (self *Window) Dialogs() *gio.ListModel {
+	var _arg0 *C.AdwWindow  // out
+	var _cret *C.GListModel // in
+
+	_arg0 = (*C.AdwWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+
+	_cret = C.adw_window_get_dialogs(_arg0)
+	runtime.KeepAlive(self)
+
+	var _listModel *gio.ListModel // out
+
+	{
+		obj := coreglib.AssumeOwnership(unsafe.Pointer(_cret))
+		_listModel = &gio.ListModel{
+			Object: obj,
+		}
+	}
+
+	return _listModel
+}
+
+// VisibleDialog returns the currently visible dialog in self, if there's one.
+//
+// The function returns the following values:
+//
+//   - dialog (optional): visible dialog.
+//
+func (self *Window) VisibleDialog() *Dialog {
+	var _arg0 *C.AdwWindow // out
+	var _cret *C.AdwDialog // in
+
+	_arg0 = (*C.AdwWindow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
+
+	_cret = C.adw_window_get_visible_dialog(_arg0)
+	runtime.KeepAlive(self)
+
+	var _dialog *Dialog // out
+
+	if _cret != nil {
+		_dialog = wrapDialog(coreglib.Take(unsafe.Pointer(_cret)))
+	}
+
+	return _dialog
 }
 
 // SetContent sets the content widget of self.

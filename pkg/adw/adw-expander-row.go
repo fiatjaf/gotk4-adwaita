@@ -353,25 +353,23 @@ func (self *ExpanderRow) Subtitle() string {
 //
 // The function returns the following values:
 //
-//   - ok: number of lines at the end of which the subtitle label will be
+//   - gint: number of lines at the end of which the subtitle label will be
 //     ellipsized.
 //
-func (self *ExpanderRow) SubtitleLines() bool {
+func (self *ExpanderRow) SubtitleLines() int {
 	var _arg0 *C.AdwExpanderRow // out
-	var _cret C.gboolean        // in
+	var _cret C.int             // in
 
 	_arg0 = (*C.AdwExpanderRow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 
 	_cret = C.adw_expander_row_get_subtitle_lines(_arg0)
 	runtime.KeepAlive(self)
 
-	var _ok bool // out
+	var _gint int // out
 
-	if _cret != 0 {
-		_ok = true
-	}
+	_gint = int(_cret)
 
-	return _ok
+	return _gint
 }
 
 // TitleLines gets the number of lines at the end of which the title label will
@@ -379,28 +377,30 @@ func (self *ExpanderRow) SubtitleLines() bool {
 //
 // The function returns the following values:
 //
-//   - ok: number of lines at the end of which the title label will be
+//   - gint: number of lines at the end of which the title label will be
 //     ellipsized.
 //
-func (self *ExpanderRow) TitleLines() bool {
+func (self *ExpanderRow) TitleLines() int {
 	var _arg0 *C.AdwExpanderRow // out
-	var _cret C.gboolean        // in
+	var _cret C.int             // in
 
 	_arg0 = (*C.AdwExpanderRow)(unsafe.Pointer(coreglib.InternObject(self).Native()))
 
 	_cret = C.adw_expander_row_get_title_lines(_arg0)
 	runtime.KeepAlive(self)
 
-	var _ok bool // out
+	var _gint int // out
 
-	if _cret != 0 {
-		_ok = true
-	}
+	_gint = int(_cret)
 
-	return _ok
+	return _gint
 }
 
+// Remove removes a child from self.
+//
 // The function takes the following parameters:
+//
+//   - child to be removed.
 //
 func (self *ExpanderRow) Remove(child gtk.Widgetter) {
 	var _arg0 *C.AdwExpanderRow // out

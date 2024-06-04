@@ -23,6 +23,43 @@ func _gotk4_adw1_ActionRowClass_activate(arg0 *C.AdwActionRow) {
 	overrides.Activate()
 }
 
+//export _gotk4_adw1_AlertDialogClass_response
+func _gotk4_adw1_AlertDialogClass_response(arg0 *C.AdwAlertDialog, arg1 *C.char) {
+	instance0 := coreglib.Take(unsafe.Pointer(arg0))
+	overrides := coreglib.OverridesFromObj[AlertDialogOverrides](instance0)
+	if overrides.Response == nil {
+		panic("gotk4: " + instance0.TypeFromInstance().String() + ": expected AlertDialogOverrides.Response, got none")
+	}
+
+	var _response string // out
+
+	_response = C.GoString((*C.gchar)(unsafe.Pointer(arg1)))
+
+	overrides.Response(_response)
+}
+
+//export _gotk4_adw1_DialogClass_close_attempt
+func _gotk4_adw1_DialogClass_close_attempt(arg0 *C.AdwDialog) {
+	instance0 := coreglib.Take(unsafe.Pointer(arg0))
+	overrides := coreglib.OverridesFromObj[DialogOverrides](instance0)
+	if overrides.CloseAttempt == nil {
+		panic("gotk4: " + instance0.TypeFromInstance().String() + ": expected DialogOverrides.CloseAttempt, got none")
+	}
+
+	overrides.CloseAttempt()
+}
+
+//export _gotk4_adw1_DialogClass_closed
+func _gotk4_adw1_DialogClass_closed(arg0 *C.AdwDialog) {
+	instance0 := coreglib.Take(unsafe.Pointer(arg0))
+	overrides := coreglib.OverridesFromObj[DialogOverrides](instance0)
+	if overrides.Closed == nil {
+		panic("gotk4: " + instance0.TypeFromInstance().String() + ": expected DialogOverrides.Closed, got none")
+	}
+
+	overrides.Closed()
+}
+
 //export _gotk4_adw1_MessageDialogClass_response
 func _gotk4_adw1_MessageDialogClass_response(arg0 *C.AdwMessageDialog, arg1 *C.char) {
 	instance0 := coreglib.Take(unsafe.Pointer(arg0))

@@ -946,6 +946,9 @@ func marshalTabView(p uintptr) (interface{}, error) {
 //
 // A typical reason to connect to this signal is to show a confirmation dialog
 // for closing a tab.
+//
+// The signal handler should return GDK_EVENT_STOP to stop propagation or
+// GDK_EVENT_CONTINUE to invoke the default handler.
 func (self *TabView) ConnectClosePage(f func(page *TabPage) (ok bool)) coreglib.SignalHandle {
 	return coreglib.ConnectGeneratedClosure(self, "close-page", false, unsafe.Pointer(C._gotk4_adw1_TabView_ConnectClosePage), f)
 }
